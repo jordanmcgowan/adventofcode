@@ -7,39 +7,48 @@ A nice string is one with all of the following properties:
 '''
 
 import sys
-import re
 
 def consecCheck(s):
-	return bool(re.search(r'(.)\1', s))
+	return any(c1 == c2 for c1, c2 in zip(s, s[1:]))
 
 def findVowels(s):
 	vowels = ['a', 'e', 'i', 'o', 'u']
-	count = 0
+	vowelCount = 0
 
 	for char in s:
 		if char in vowels:
-			print char
-			count += 1 
+			vowelCount += 1 
 
-	if char >= 3:
+	if vowelCount >= 3:
 		return True
+
+	elif vowelCount < 3:
+		return False
 
 count = 0
 
 for line in open('input.txt'):
+	print line
 
-	if 'ab' in line or 'cd' in line or 'pq' in line or 'xy' in line:
-		print 'fail'
+	#Check to see if there are 3 vowels
+	if not findVowels(line):
+		print 'fail vowels'
 		count += 1
 
-	elif consecCheck(line):
-		print 'fail'
+	#Check for special chars
+	elif 'ab' in line or 'cd' in line or 'pq' in line or 'xy' in line:
+		print 'fail special char'
+		count += 1
+
+	elif not consecCheck(line):
+		print 'fail consecutive'
 		count += 1 
 
-	elif findVowels(line):
-		print 'fail'
-		count += 1
 
-print count
+print 1000 - count
 
-#515 too high
+'''
+How many strings are nice?
+
+Your puzzle answer was 255.
+'''
