@@ -7,6 +7,14 @@ def repeatChars(s):
 		print ""
 '''
 
+count = 0
 
 for line in open('input.txt'):
-	print zip(line, line[1:])
+	if count == 0:
+		i = 0
+		zipped = zip(line, line[1:])
+		for a in zipped[i]:
+			print zipped[i]
+			print a
+		i += 1
+	
